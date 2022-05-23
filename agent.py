@@ -110,9 +110,6 @@ class Agent:
                 action = ACTION_SPACE[action_index]
                 next_state, reward, done = self.get_res_state(action)
 
-                if score >= REWARD_BOOST:
-                    reward += REWARD_BOOST_VAL
-
                 score += reward
 
                 neg_cnt = neg_cnt + 1 if reward < 0 else 0
@@ -156,5 +153,5 @@ class Agent:
             action_index = self.select_action(state, True)
             next_state, reward, done = self.get_res_state(ACTION_SPACE[action_index])
             state = next_state
-            if done:
-                break
+            # if done:
+            #     break
