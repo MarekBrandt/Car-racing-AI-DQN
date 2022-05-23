@@ -49,5 +49,5 @@ class DQN(nn.Module):
         torch.save(self.state_dict(), file_name)
 
     def load(self, file_name):
-        path = os.path.join('model', file_name)
+        path = os.path.join('best_model', file_name)
         self.load_state_dict(torch.load(path))
