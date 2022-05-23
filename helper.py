@@ -3,6 +3,7 @@ import numpy as np
 import torchvision.transforms as trans
 import torch
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -42,21 +43,23 @@ def wait_for_zoom(env):
 def plot(i_episode, all_scores, reward_last10, score_averages):
     score_averages.append(sum(all_scores) / (i_episode + 1))
     if i_episode % 10 == 0 and i_episode >= 10:
-        plt.figure()
+        fig = figure(figsize = (10, 7), dpi = 300)
         reward_last10.append(sum(all_scores[i_episode - 10:i_episode]) / 10)
         plt.plot(reward_last10)
-        plt.title("avg reward from last 10 episodes")
-        plt.savefig("avg_reward_treningu.png")
+        plt.title("Average reward form 10 last episodes")
+        plt.xlabel("Episodes / 10")
+        plt.ylabel("Average rewards")
+        plt.savefig("average.png")
         plt.close()
 
-    plt.figure()
+    fig2 = figure(figsize = (10,7), dpi = 300)
     plt.plot(all_scores)
     plt.plot(score_averages)
 
-    plt.title("Training :)")
-    plt.legend(["total", "avg"])
+    plt.title("Scores from all episodes")
+    plt.legend(["Total", "Average"])
     plt.xlabel("Episodes")
     plt.ylabel("Reward")
     # plot_handle = plt.show(block=False)
-    plt.savefig("wykresik_treningu.png")
+    plt.savefig("all_episodes.png")
     plt.close()
